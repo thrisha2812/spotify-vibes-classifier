@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Playlists</title>
+</head>
+<body>
+  <h2>Your Spotify Playlists</h2>
+  <form action="/analyze" method="POST">
+    {% for p in playlists %}
+      <div style="margin-bottom: 15px;">
+        <input type="checkbox" name="playlist_ids" value="{{ p.id }}">
+        <img src="{{ p.image }}" width="60" alt="cover" style="vertical-align: middle;">
+        <strong>{{ p.name }}</strong> ({{ p.tracks }} tracks)
+      </div>
+    {% endfor %}
+    <button type="submit">Analyze Selected</button>
+  </form>
+</body>
+</html>
