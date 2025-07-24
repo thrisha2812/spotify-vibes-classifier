@@ -2,18 +2,33 @@
 <html>
 <head>
   <title>Your Playlists</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
 </head>
 <body>
   <h2>Your Spotify Playlists</h2>
-  <form action="/analyze" method="POST">
+  <form id="playlist-form">
     {% for p in playlists %}
-      <div style="margin-bottom: 15px;">
-        <input type="checkbox" name="playlist_ids" value="{{ p.id }}">
-        <img src="{{ p.image }}" width="60" alt="cover" style="vertical-align: middle;">
+      <div class="playlist" data-playlist-id="{{ p.id }}">
+      <input type="checkbox" name="playlist_ids" value="{{ p.id }}" data-track-ids='{{ p.track_ids | tojson }}'>
+
+
+        <img src="{{ p.image }}" width="60" alt="cover">
         <strong>{{ p.name }}</strong> ({{ p.tracks }} tracks)
+        <span class="vibe" id="vibe-{{ p.id }}"></span>
       </div>
     {% endfor %}
-    <button type="submit">Analyze Selected</button>
+    <button type="button" id="analyze-btn">Analyze Selected</button>
+
+    <canvas id="vibeChart" width="400" height="250" style="margin-top: 20px;"></canvas>
+    <div id="vibe-result" class="mt-4 p-3 border bg-light text-dark rounded"></div>
+
   </form>
+
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <script src="{{ url_for('static', filename='analyze.js') }}"></script>
 </body>
 </html>
