@@ -1,5 +1,5 @@
 # backend/app.py
-from flask import Flask, redirect, request, session, jsonify, render_template, url_for
+from flask import Flask, redirect, request, session, jsonify, render_template, url_for, send_file
 import requests, os
 from dotenv import load_dotenv
 from collections import Counter
@@ -373,6 +373,10 @@ def analyze():
     print("✅ Analysis completed successfully")
     return jsonify(result)
 
+@app.route('/download')
+def download():
+    path = 'samplefile.pdf'
+    return send_file(path, as_attachment=True)
 
 if __name__ == "__main__":
     app.run(debug=True)

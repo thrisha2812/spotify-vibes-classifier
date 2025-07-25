@@ -23,12 +23,13 @@
     {% endfor %}
     <div id="liked-songs-placeholder"></div>
 
-    <button type="button" id="analyze-btn">Analyze Selected</button>
-
-    <canvas id="vibeChart" width="400" height="250" style="margin-top: 20px;"></canvas>
-    <div id="vibe-result" class="mt-4 p-3 border bg-light text-dark rounded"></div>
+    <div class="analyze-card">
+  <button type="button" id="analyze-btn" class="analyze-button">Analyze Selected</button>
+  <div id="vibe-result" class="vibe-box"></div>
+</div>
 
   </form>
+<a class="btn btn-success" href="{{url_for('download')}}">Download</a>
 
  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
  <script src="{{ url_for('static', filename='analyze.js') }}"></script>

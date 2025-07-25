@@ -80,8 +80,38 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error during /analyze fetch:", err);
         alert("Something went wrong. Please try again.");
         if (resultBox) {
-          resultBox.innerHTML = "<p>Error occurred during analysis.</p>";
-        }
+  const report = `
+Vibe: ${data.vibe}
+Energy: ${data.average_features.energy.toFixed(2)}
+Valence: ${data.average_features.valence.toFixed(2)}
+Danceability: ${data.average_features.danceability.toFixed(2)}
+Acousticness: ${data.average_features.acousticness.toFixed(2)}
+Tempo: ${data.average_features.tempo.toFixed(1)} BPM
+`;
+
+  resultBox.innerHTML = `
+    <h3>${data.vibe}</h3>
+    <p><strong>Energy:</strong> ${data.average_features.energy.toFixed(2)}</p>
+    <p><strong>Valence:</strong> ${data.average_features.valence.toFixed(2)}</p>
+    <p><strong>Danceability:</strong> ${data.average_features.danceability.toFixed(2)}</p>
+    <p><strong>Acousticness:</strong> ${data.average_features.acousticness.toFixed(2)}</p>
+    <p><strong>Tempo:</strong> ${data.average_features.tempo.toFixed(1)} BPM</p>
+  `;
+
+  // Enable download
+  const downloadBtn = document.getElementById("download-btn");
+  if (downloadBtn) {
+    downloadBtn.onclick = function () {
+      const blob = new Blob([report], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "vibe_report.txt";
+      a.click();
+    };
+  }
+}
+
       });
   });
 });
